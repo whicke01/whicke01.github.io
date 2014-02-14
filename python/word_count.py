@@ -33,6 +33,7 @@ try:
     for i in range(llen):
         print buff[i] + " " + str(words[buff[i]])
  
+    print "There are " + str(llen) + " words in this file."
 #except if file does not exist. 
 except IOError:
    print 'Bad File'                
