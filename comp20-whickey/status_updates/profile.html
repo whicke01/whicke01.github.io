@@ -5,7 +5,29 @@
 
 <head>
 <title>Fecesbook</title>
+<script type="text/javascript">
+	function Status_Update()
+	{
+		var elem_update = document.getElementById("msg");
+		var e = window.event;
+		var keyCode = e.keyCode || e.which;
+		if (keyCode == '13'){
+			elem_update.value = null;
+			return false;
+		}
+
+
+
+		update_msg = elem_update.value;
+		elem_update.value = null;
+
+
+	}
+
+
+</script>
 </head>
+
 
 <body>
 	<h1>Fecebook</h1>
@@ -20,7 +42,7 @@
 		</ul>
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
-	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" /></h3>
+	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="Status_Update()" /></h3>
 	<h3>Updates</h3>
 	<div id="status">
 	</div>
