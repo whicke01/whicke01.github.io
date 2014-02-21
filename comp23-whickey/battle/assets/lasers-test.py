@@ -1,4 +1,4 @@
-
+'''Will Hickey'''
 import pygame, os, sys
 from pygame.locals import *
 from random import randint
