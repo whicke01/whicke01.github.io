@@ -3,6 +3,7 @@ import pygame, os, sys
 from pygame.locals import *
 from random import randint
 
+
 class Laser(pygame.sprite.Sprite):
 	''' A simple sprite that bounces off the walls '''
 
