@@ -1,11 +1,48 @@
-
 <!DOCTYPE html>
 
 <html>
 
 <head>
 <title>Fecesbook</title>
+<script type="text/javascript">
+	function Status_Update()
+	{
+        var elem_update = document.getElementById("msg");
+		var status_elem = document.getElementById("status");
+        var p = document.createElement("p");
+        var d = new Date();
+		var e = window.event;
+		var keyCode = e.keyCode || e.which;
+		if (keyCode == '13'){
+			update_msg = elem_update.value;
+			elem_update.value = null;
+            var child_elem = document.createTextNode(update_msg);
+            var br = document.createElement("br");
+            
+            var curr_date = d.toLocaleDateString();
+            var date_elem = document.createTextNode(curr_date);
+            
+            var curr_time = d.toLocaleDateString();
+            var time_elem = document.createTextNode(curr_date);
+            
+            var space_buf = document.createTextNode(" ");
+            var dash_buf = document.createTextNode(" - ");
+            
+            status_elem.appendChild(date_elem);
+            status_elem.appendChild(dash_buf);
+            
+            status_elem.appendChild(child_elem);  
+            status_elem.appendChild(br);
+            status_elem.appendChild(p);
+            
+		}
+        
+	}
+
+
+</script>
 </head>
+
 
 <body>
 	<h1>Fecebook</h1>
@@ -20,7 +57,7 @@
 		</ul>
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
-	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" /></h3>
+	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onkeypress="Status_Update()" /></h3>
 	<h3>Updates</h3>
 	<div id="status">
 	</div>
