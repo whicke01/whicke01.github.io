@@ -49,6 +49,8 @@ class Obstacle(pygame.sprite.Sprite):
         self.dx = 0
         self.dy = 0
 
+        self.laserGroup = pygame.sprite.Group()
+
     def update(self):
         '''Updates the sprite's position and active status'''
 

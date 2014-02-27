@@ -18,7 +18,7 @@ class Unit(pygame.sprite.Sprite):
             raise SystemExit, message
         return image.convert_alpha()
 
-    def __init__(self, hpMax, hpCur, staminaMax, staminaCur, weapons, armor
+    def __init__(self, hpMax, hpCur, staminaMax, staminaCur, weapons, armor,
                  image, onHit, onDeath, initX, initY, canvas):
         self.hpMax = hpMax
         self.hpCur = hpCur
@@ -29,10 +29,13 @@ class Unit(pygame.sprite.Sprite):
         self.weapons    = weapons
         self.currWeap   = weapons[0]
 
-        self.armorClass = armor # armorClass = an integer that dampens damage
+        self.armorClass = armor # an integer that dampens damage
 
-        self.x = init_x
-        self.y = init_y
+        self.x = initX
+        self.y = initY
+
+        self.dx = 0
+        self.dy = 0
 
         self.image =   self.load_image(image)
         self.image_w = self.image.get_width()
@@ -41,8 +44,8 @@ class Unit(pygame.sprite.Sprite):
         self.onDeathImage = onDeath # Path to image of sprite dying
 
         self.rect = self.image.get_rect()
-        self.rect.x = init_y
-        self.rect.y = init_y
+        self.rect.x = initX
+        self.rect.y = initY
 
         self.screen = canvas
         self.active = True
