@@ -1,0 +1,8 @@
+# Ryan Schumacher
+# Game.py
+#
+# The main game loop 
+
+import pygame, os, sys
+from pygame.locals import *
+from random import randint

@@ -1,15 +1,15 @@
 # Ryan Schumacher
-# Obstacle.py
+# Projectile.py
 #
-# Any inanimate, immobile object is classified as an object in Sektor CS
+# An object that moves. All projectiles are fired from the Unit class.
 
 import pygame, os, sys
 from Laser import Laser
 from pygame.locals import *
 from random import randint
 
-class Obstacle(pygame.sprite.Sprite):
-    ''' An inanimate object that may deal damage when touched by a unit'''
+class Projectile(pygame.sprite.Sprite):
+    ''' A flying sprite '''
 
     def load_image(self, image_path):
         ''' Loads the sprite from the designated path'''
@@ -20,60 +20,47 @@ class Obstacle(pygame.sprite.Sprite):
             raise SystemExit, message
         return image.convert_alpha()
 
-    def __init__(self, hpMax, armor, touchDamage, imagePath, onHit, onDeath, 
-                 init_x, init_y, maxHP, armor, canvas):
+    def __init__(self, image, onCollide, damage, initDX, initDY, canvas)
         ''' Creates an obstacle at coordinates x y with the given canvas'''
         pygame.sprite.Sprite.__init__(self)
-
-        self.hpMax = hpMax
-        self.hpCur = hpMax
-        self.armorClass  = armor #armorClass = an integer that dampens damage
-        self.touchDamage = touchDamage # Damage dealt for touching this object
-
-        self.x = init_x
-        self.y = init_y
 
         self.image   = self.load_image(imagePath)
         self.image_w = self.image.get_width()
         self.image_h = self.image.get_height()
-        self.onHitImage   = onHit   # Path to image of sprite getting hit
-        self.onDeathImage = onDeath # Path to image of sprite dying 
 
-        self.rect = self.image.get_rect()
+        self.rect   = self.image.get_rect()
         self.rect.x = init_y
         self.rect.y = init_y
+
+        self.onCollideImage   = onCollide   # Path to collision image
+        self.damageScore = damage
+
+        self.dx = initDX
+        self.dy = initDY
 
         self.screen = canvas
         self.active = True
 
-        self.dx = 0
-        self.dy = 0
-
     def update(self):
         '''Updates the sprite's position and active status'''
+        self.x += self.dx
+        self.y += self.dy
+
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # TODO: Test for moving off screen
 
     def draw(self):
         self.screen.blit(self.image, 
                          self.image.get_rect().move(self.x - self.image_w / 2, 
                          self.y - self.image_h / 2))
 
-    def checkDeath (self):
-        if self.hpCur <= 0:
-            # TODO: Kill the sprite and play animation
-            self.active = False;
+    def getDamageScore(self):
+        return self.damageScore
 
-
-    def getHpMax(self):
-        return self.hpMax
-
-    def setHpMax(self, newhpMax):
-        self.hpMax = newhpMax;
-
-    def getHpCur(self):
-        return self.hpCur
-
-    def setHpCur(self, newHpCur):
-        self.hpCur = newHpCur
+    def setDamageScore(self, newDamageScore):
+        self.damageScore = newDamageScore
 
     def getX(self):
         return self.x
