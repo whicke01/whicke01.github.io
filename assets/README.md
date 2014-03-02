@@ -1,1 +1,1 @@
-Images and sounds for Sektor CS
+Images and sounds for Sektor CS.
