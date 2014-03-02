@@ -19,15 +19,22 @@
             var child_elem = document.createTextNode(update_msg);
             var br = document.createElement("br");
             
-            var curr_time = " " + d.getHours() + ":" + d.getMinutes();
-            var curr_date = d.toLocaleDateString() + curr_time + " - " + update_msg;
-            
+            var curr_date = d.toLocaleDateString();
             var date_elem = document.createTextNode(curr_date);
-                        
-            status_elem.insertBefore(p, status_elem.firstChild);
-            status_elem.insertBefore(br, status_elem.firstChild);
-            status_elem.insertBefore(date_elem, status_elem.firstChild);
- 
+            
+            var curr_time = d.toLocaleDateString();
+            var time_elem = document.createTextNode(curr_date);
+            
+            var space_buf = document.createTextNode(" ");
+            var dash_buf = document.createTextNode(" - ");
+            
+            status_elem.appendChild(date_elem);
+            status_elem.appendChild(dash_buf);
+            
+            status_elem.appendChild(child_elem);  
+            status_elem.appendChild(br);
+            status_elem.appendChild(p);
+            
 		}
         
 	}
