@@ -1,1 +1,0 @@
-Sprites for Sektor CS

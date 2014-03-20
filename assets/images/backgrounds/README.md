@@ -1,1 +1,0 @@
-Background images for Sektor CS.
