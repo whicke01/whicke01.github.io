@@ -1,0 +1,154 @@
+# Ryan Schumacher
+# Obstacle.py
+#
+# Any inanimate object is known as an obstacle
+
+import pygame, os, sys
+from Laser import Laser
+from pygame.locals import *
+from random import randint
+
+class Obstacle(pygame.sprite.Sprite):
+    '''A spaceship that can be controlled by the user and fire lasers'''
+
+    def load_image(self, image_path):
+        ''' Loads the sprite from the designated path'''
+        try:
+            image = pygame.image.load(image_path)
+        except pygame.error, message:
+            print "Error loading image: " + image_path
+            raise SystemExit, message
+        return image.convert_alpha()
+
+    def __init__(self, init_x, init_y, canvas):
+        '''Create a Battlecruiser at coordinates (x, y) with the given speed'''
+        pygame.sprite.Sprite.__init__(self)
+
+        self.x = init_x
+        self.y = init_y
+
+        self.image = self.load_image('assets/battlecruiser.gif')
+        self.image_w = self.image.get_width()
+        self.image_h = self.image.get_height()
+
+        self.rect = self.image.get_rect()
+        self.rect.x = init_y
+        self.rect.y = init_y
+
+        self.screen = canvas
+        self.active = True
+
+        # No movement until the user presses keys
+        self.dx = 0
+        self.dy = 0
+
+        self.laserGroup = pygame.sprite.Group()
+
+    def update(self):
+        '''Updates the sprite's position and active status'''
+        self.x += self.dx
+        self.y += self.dy
+
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        if self.rect.y <= 5:
+            self.dy = 0
+            self.y += 1
+            self.rect.y += 1
+        elif self.rect.y + self.image_h >= screen.get_height() - 5:
+            self.dy = 0
+            self.y -= 1
+            self.rect.y -=1
+
+        if self.rect.x <= 5:
+            self.dx = 0
+            self.x += 1
+            self.rect.x += 1
+        elif self.rect.x + self.image_h >= screen.get_width() - 5:
+            self.dx = 0
+            self.x -= 1
+            self.rect.x -= 1
+            
+    def draw(self):
+        self.screen.blit(self.image, self.image.get_rect().move(self.x - self.image_w / 2, 
+                                                                self.y - self.image_h / 2))
+
+    def changeDX(self, newDX):
+        self.dx = newDX
+    
+    def changeDY(self, newDY):
+        self.dy = newDY
+
+    def fireLaser(self):
+        ''' Creates a laser at the ship's surface'''
+        self.laserGroup.add(Laser((2 * self.rect.x + self.image_w) / 2, self.rect.y, 0, -5, self.screen))
+
+if __name__ == "__main__":
+
+    # Display constants according to lab specs
+    FPS = 50
+    SCREEN_WIDTH  = 800
+    SCREEN_HEIGHT = 600
+    BACKGROUND_COLOR = (0, 0, 0)
+
+    # Pygame Initialization
+    pygame.init()
+    pygame.display.set_caption('Fun with Battleshipz')
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
+    clock = pygame.time.Clock()
+
+    # Used a group for modularity
+    battlecruiserGroup = pygame.sprite.Group()
+    battlecruiserGroup.add(Battlecruiser(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, screen))
+
+    # Game loop
+    while True:
+        time_elapsed = clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == K_DOWN:
+                    for unit in battlecruiserGroup:
+                        unit.changeDY(1)
+                elif event.key == K_LEFT:
+                    for unit in battlecruiserGroup:
+                        unit.changeDX(-1)
+                elif event.key == K_RIGHT:
+                    for unit in battlecruiserGroup:
+                        unit.changeDX(1)
+                elif event.key == K_UP:
+                    for unit in battlecruiserGroup:
+                        unit.changeDY(-1)
+                elif event.key == K_SPACE:
+                    for unit in battlecruiserGroup:
+                        unit.fireLaser()
+            elif event.type == KEYUP:
+                for unit in battlecruiserGroup:            
+                    if event.key == K_DOWN:
+                        unit.changeDY(0)
+                    elif event.key == K_LEFT:
+                        unit.changeDX(0)
+                    elif event.key == K_RIGHT:
+                        unit.changeDX(0)
+                    elif event.key == K_UP:
+                        unit.changeDY(0)
+
+
+        # Draw background, update sprites, redraw sprites
+        screen.fill(BACKGROUND_COLOR)
+
+        battlecruiserGroup.update()
+        battlecruiserGroup.draw(screen)
+
+        # Update the laseres
+        for unit in battlecruiserGroup:
+            unit.laserGroup.update()
+            unit.laserGroup.draw(screen)
+
+        pygame.display.update()
