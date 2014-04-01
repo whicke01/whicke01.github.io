@@ -1,6 +1,6 @@
 body {
         /*background-color:rgb(0,0,0);*/
-        background-color: White
+        background-color: White;
         font-family: 'Helvetica Neue', Helvetica, Arial, serif;
         font-size: small; /* You can use px here too! */
         /*color: rgb(50,200,50);*/
@@ -36,12 +36,12 @@ p {
         margin-left: 8%;
     }
     
-#school {
+#school1 #school2 {
         margin-left: 11%;
         line-height: 16px;
     }
     
-li {
+ul {
         font-family: Helvetica;
         font-size: 16px;
         margin-left: 8%;

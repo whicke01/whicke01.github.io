@@ -1,6 +1,6 @@
 body {
         text-align: center;
-        background-color:rgb(255,255,255,);
+        background-color:rgb(255,255,255);
         font-family: 'Helvetica Neue', Helvetica, Arial, serif;
         font-size: small; /* You can use px here too! */
         color: rgb(0,0,0);
@@ -50,5 +50,5 @@ img {
             border-style: ridge;
             border-width: 5pt;
             border-color: black;
-            margin-right: screen-width - 200;
+            /*margin-right: (width - 200);*/
 }
