@@ -1,5 +1,6 @@
 body {
-        background-color:rgba(10,20,200,0.5);
+        /*background-color:rgba(10,20,200,0.5);*/
+        background-color: White;
         color: rgb(64,64,64);
 }
 h1 {
@@ -20,4 +21,28 @@ p {
         font-family: Helvetica;
         font-size: 18px;
         margin-left: 7%;
+        margin-right: 30%;
+}
+
+#header-wrap {
+    position: fixed;
+    height: 75px;
+    top: 0;
+    width: 50%;
+    margin-left: 25%;
+    background-color: white;
+    z-index: 100;
+    border-color: Blue;
+    border-style: double;
+    border-width: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#nav_menu{
+        font-size: 20px;
+        font-weight:bold;
+        color: Black;
 }
